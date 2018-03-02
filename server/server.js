@@ -11,23 +11,32 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
     console.log("new user connected");
 
-    socket.on('connect', () => {
-        console.log("connected");
-    })
+    
+    socket.emit('newMsg', {
+        from : 'Admin',
+        text : 'welcome to the chat'
+    });
+
+    socket.broadcast.emit('newMsg', {
+        from : 'Admin',
+        text : 'New user joined.'
+    }); 
 
     socket.on('disconnect', () => {
         console.log("disconnected");
     })
 
     socket.on('createMsg', (data) => {
-        console.log(data);
+    //    console.log(data);
+
+        io.emit('newMsg', {
+            from : data.from,
+            text : data.text,
+            createdAt : 123
+        });
     });
 
-    socket.emit('newMsg', {
-        from : "jen",
-        text : "Hi",
-        createdAt : 123
-    });
+    
 });
 
 app.use(express.static(path.join(__dirname, '../public')));

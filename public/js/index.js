@@ -16,3 +16,13 @@ socket.emit('createMsg', {
 socket.on('newMsg', function(data) {
     console.log(data);
 })
+
+socket.on('welcome', function(data) {
+    console.log(data);
+});
+
+socket.on('newUserAdded', function(data) {
+    console.log(data);
+});
+
+socket.emit('newUser');
