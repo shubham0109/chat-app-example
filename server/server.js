@@ -18,6 +18,16 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log("disconnected");
     })
+
+    socket.on('createMsg', (data) => {
+        console.log(data);
+    });
+
+    socket.emit('newMsg', {
+        from : "jen",
+        text : "Hi",
+        createdAt : 123
+    });
 });
 
 app.use(express.static(path.join(__dirname, '../public')));
