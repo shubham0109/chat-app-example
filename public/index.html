@@ -1,24 +1,30 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-
+        <link rel="stylesheet" href="css/styles.css">
     </head>
 
-    <body>
-        <p>
-            hello there
-        </p>
-
-        <div id="messages">
-            
+    <body class="chat">
+        
+        <div class="chat__sidebar">
+            <h3>People</h3>
         </div>
-
-        <form id="message-form">
-            <input name="message" placeholder="text here">
-            <button>Send</button>
-        </form>
+        
+        <div class="chat__main">
+            <div id="messages" class="chat__messages">
+            </div>        
+        
+            <div class="chat__footer">
+                <form id="message-form">
+                    <input name="message" placeholder="text here" autofocus autocomplete="off">
+                    <button>Send</button>
+                </form>
+            </div>
+        </div>
+        
         <script src="/socket.io/socket.io.js"></script>
         <script src="lib/jquery.js"></script>
+        <script src="lib/moment.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>
