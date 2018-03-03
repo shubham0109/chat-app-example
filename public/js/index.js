@@ -8,21 +8,26 @@ socket.on('disconnect', function() {
     console.log("disconnected");
 });
 
-socket.emit('createMsg', {
-    from : 'ken',
-    text : "Hello"
-});
+
 
 socket.on('newMsg', function(data) {
     console.log(data);
-})
-
-socket.on('welcome', function(data) {
-    console.log(data);
+    var li = $('<li></li>');
+    li.text(`${data.from} : ${data.text}`);
+    $('#messages').append(li);
 });
 
-socket.on('newUserAdded', function(data) {
-    console.log(data);
+$('document').ready(function(e){
+ //   e.preventDefault();
+    $('form').submit(function(e){
+        e.preventDefault();
+        socket.emit('createMsg', {
+            from : "User",
+            text : $('input').val()
+        }, function(){
+            
+        });
+    });
 });
 
-socket.emit('newUser');
+

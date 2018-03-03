@@ -22,10 +22,11 @@ io.on('connection', (socket) => {
         console.log("disconnected");
     })
 
-    socket.on('createMsg', (data) => {
+    socket.on('createMsg', (data, callback) => {
     //    console.log(data);
 
         io.emit('newMsg', generateMessage(data.from, data.text));
+        callback('from the server');
     });
 
     
