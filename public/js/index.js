@@ -13,9 +13,13 @@ socket.on('disconnect', function() {
 socket.on('newMsg', function(data) {
     console.log(data);
     var time = moment(data.createdAt).format('h:mm a');
-    var li = $('<li></li>');
-    li.text(`${data.from} ${time} : ${data.text}`);
-    $('#messages').append(li);
+    var template = $('#message-template').html();
+    var rendered = Mustache.render(template, {
+        from : data.from,
+        text : data.text,
+        createdAt : time
+    });
+    $('#messages').append(rendered);
 });
 
 $('document').ready(function(){
