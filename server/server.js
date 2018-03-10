@@ -10,6 +10,9 @@ var server = app.listen(port, () => {
 });
 var io = socketIO(server);
 
+app.use(express.static(path.join(__dirname, '../public')));
+
+
 io.on('connection', (socket) => {
     console.log("new user connected");
 
@@ -32,5 +35,4 @@ io.on('connection', (socket) => {
     
 });
 
-app.use(express.static(path.join(__dirname, '../public')));
 
