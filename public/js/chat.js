@@ -16,21 +16,37 @@ function scrollToBottom (){
 }
 
 socket.on('connect', function() { 
-    console.log("connected");
+    var params = $.deparam(window.location.search);
+
+    socket.emit('join', params, function(err){
+        if (err){
+            alert("Enter valid name and room");
+            window.location.href = '/';
+        }else {
+            console.log("correct");
+        }
+    });
 });
 
 socket.on('disconnect', function() {
     console.log("disconnected");
 });
 
-
+socket.on('userUpdate', function(userList){
+    console.log('users: ' + userList);
+    var ul = $('<ul></ul>');
+    userList.forEach(function (user){
+        ul.append($('<li></li>').text(user));
+    }); 
+    $('#users').html(ul);
+});
 
 socket.on('newMsg', function(data) {
     console.log(data);
     var time = moment(data.createdAt).format('h:mm a');
     var template = $('#message-template').html();
     var rendered = Mustache.render(template, {
-        from : data.from,
+    //    from : data.from,
         text : data.text,
         createdAt : time
     });
